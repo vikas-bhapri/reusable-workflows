@@ -1,1 +1,32 @@
 name: Reusable Workflow
+on:
+    workflow_call:
+        inputs:
+            name:
+                description: 'input description'
+                type: string
+                default: 'Vikas'
+                required: true
+
+        secrets:
+            access_token:
+                description: 'Access token'
+                required: true
+                
+jobs:
+    checkout:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - run: ls -a
+
+    show-contectand-inputs:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Github context
+              run: echo '${{ github }}'
+            - name: Github inputs
+              run: echo '${{ inputs.name }}'
+            - name: Github secrets
+              run: echo '${{ secrets.access_token }}'
+            
